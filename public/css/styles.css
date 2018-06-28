@@ -2,6 +2,7 @@
 	--white: #fff;
 	--grey: rgba(128, 128, 128, 1);
 	--red: #E5193EFF;
+	--purple: #7131CDFF;
 }
 
 * {
@@ -77,15 +78,28 @@ body {
 
 .converter__input {
 	padding: 1rem;
-	border: 1px inset #C0C0C0FF;
+	border: 1px solid #C0C0C0FF;
 	font-size: 1rem;
 	outline: none;
 }
 
 .converter__input-list {
 	padding: 1rem;
-	border: 1px inset #C0C0C0FF;
+	border: 1px solid #C0C0C0FF;
 	font-size: 1rem;	
 	outline: none;
 }
 
+input[type="text"]:not(:focus) {
+	background: rgba(0, 0, 0, 0.3);
+	transition: all .2s ease-in;
+}
+
+select {
+	background: var(--grey);
+}
+
+option {
+	background-color: #C0C0C0FF;
+
+}
