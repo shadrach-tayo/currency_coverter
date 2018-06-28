@@ -1,0 +1,15 @@
+{
+  "name": "currency_converter",
+  "version": "1.0.0",
+  "description": "currency converter app",
+  "main": "./public/scripts/app.js",
+  "scripts": {
+    "start": "live-server --open=dist"
+  },
+  "author": "shadrach",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^5.0.0"
+  }
+}
