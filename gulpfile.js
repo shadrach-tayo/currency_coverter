@@ -38,6 +38,11 @@ gulp.task('scripts', async () => {
 		.pipe(gulp.dest(path.scripts.dest))
 })
 
+gulp.task('sw', async () => {
+	return gulp.src(path.sw.src)
+		.pipe(gulp.dest(path.sw.dest))
+})
+
 gulp.task('images', async () => {
 	return gulp.src(path.images.src)
 		.pipe(gulp.dest(path.images.dest));
@@ -48,6 +53,7 @@ gulp.task('watch', gulp.parallel(() => {
 	gulp.watch(path.styles.src, gulp.parallel('styles'));
 	gulp.watch(path.images.src, gulp.parallel('images'));
 	gulp.watch(path.scripts.src, gulp.parallel('scripts'));
+	gulp.watch(path.sw.src, gulp.parallel('sw'));
 }));
 
-gulp.task('default', gulp.parallel('html', 'styles', 'images', 'scripts', 'watch'));
+gulp.task('default', gulp.parallel('html', 'styles', 'sw', 'images', 'scripts', 'watch'));
