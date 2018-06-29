@@ -20,7 +20,7 @@ class Converter {
 	registerServiceWorker() {
 		if(!navigator.serviceWorker) return;
 
-		navigator.serviceWorker.register('assets/js/sw.js')
+		navigator.serviceWorker.register('/dist/sw.js', {scope: '/dist/'})
 		.then(reg => {
 			let serviceWorker;
 			if(reg.installing) {
@@ -113,7 +113,6 @@ class Converter {
 				};
 			})
 			.catch(err => console.error(err));
-
 	}
 
 	displayCurrencyResult(value) {
@@ -123,8 +122,8 @@ class Converter {
 
 
 	updateCurrencyList(currencyData) {
-		// fix firstly
 		let optionList = '';
+		console.log(currencyData);
 		for(let currency in currencyData) {
 			let {currencyName, id } = currencyData[currency];
 			optionList +=`<option value=${id}>${id} (${currencyName})</option>`;
