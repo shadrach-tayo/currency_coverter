@@ -1,11 +1,17 @@
 class Converter {
 	constructor() {
+		// name for and placeholder database;
+		this.dbName = 'converters';
+		this.db;
+
 		this.fetchData = this.fetchData.bind(this);
 		this.convertCurrency = this.convertCurrency.bind(this);
 		this.updateCurrencyList = this.updateCurrencyList.bind(this);
 
 		// bindings to worker functions
 		this.updateWorker = this.updateWorker.bind(this);
+		this.openDatabase = this.openDatabase.bind(this);
+		this.saveRatesInDb = this.saveRatesInDb.bind(this);
 		this.trackInstalling = this.trackInstalling.bind(this);
 		this.registerServiceWorker = this.registerServiceWorker.bind(this);
 
@@ -15,6 +21,18 @@ class Converter {
 		this.getCurrencyList();
 		this.initializeInputs();
 		this.registerServiceWorker();
+		this.openDatabase();
+		// this.saveRatesInDb();
+	}
+
+	async saveRatesInDb() {
+
+		let tx = this.db.transaction("converters", "readwrite")
+			.objectStore('converters')
+			.add({id: "ALL_ALL", rate: 1});
+		tx.onsuceess = (event) => {
+			console.log(event.target.result);
+		}
 	}
 
 	registerServiceWorker() {
@@ -98,19 +116,18 @@ class Converter {
 		currencyFrom = encodeURIComponent(currencyFrom);
 		let query = `${currencyFrom}_${currencyTo}`;
 		const url = `https://free.currencyconverterapi.com/api/v5/convert?q=${query}&compact=y`;
-		console.log(query, url);
 
 		// make call to api
 		fetch(url).then(response => response.json())
-			.then(result => {
-				let rate = result[`${query}`].val;
-				if(rate !== undefined) {
-					let value = amount * rate;
-					console.log(value);
-					value = Math.round(value * 100 / 100);
-					console.log(value);
-					this.displayCurrencyResult(value);
-				};
+			.then(response => {
+				if(response) {
+					let rate = response[`${query}`].val;
+					if(rate !== undefined) {
+						let value = amount * rate;
+						value = Math.round(value * 100 / 100);
+						this.displayCurrencyResult(value);
+					};
+				}
 			})
 			.catch(err => console.error(err));
 	}
@@ -119,7 +136,6 @@ class Converter {
 		this.inputToConvertTo.value = value;
 		this.inputToConvertTo.focus();
 	}
-
 
 	updateCurrencyList(currencyData) {
 		let optionList = '';
@@ -130,6 +146,39 @@ class Converter {
 		}	
 		this.currencyToConvertFrom.innerHTML = optionList;
 		this.currencyToConvertTo.innerHTML = optionList;
+	}
+
+	openDatabase() {
+		if(!window.indexedDB) {
+			alert('Your browser does not support IndexedDB, some features may not work properly');
+		}
+
+		let request =  window.indexedDB.open(this.dbName, 1);
+
+		request.onsuccess = async (event) => {
+			this.db = await event.target.result;
+			console.log(this.db);
+			console.log('indexedDB was successfully opened');
+		}
+
+		request.onerror = (event) => {
+			alert('please enable indexedDB to be able to access more features');
+			console.error(event.target.errorCode);
+		}
+
+		request.onupgradeneeded = async (event) => {
+			this.db = await event.target.result;
+
+			// create objectStore
+			this.objectStore = await this.db.createObjectStore('converters', {keypath: 'id', autoincrement: true });
+
+			// createIndex
+			this.objectStore.createIndex("id", "id", {unique: true});
+
+			this.objectStore.oncomplete	= () => {
+				console.log(`${this.db} was completed successfully`);
+			}
+		}
 	}
 }
 

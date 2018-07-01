@@ -1,4 +1,4 @@
-let staticCacheName = 'converter-v1';
+let staticCacheName = 'converter-v2';
 let currencyListCache = 'currencyList';
 let currencyValueCache = 'currencyValue-1';
 
@@ -35,21 +35,16 @@ self.addEventListener('activate', event => {
 	);
 });
 
-self.addEventListener('onerror', event => {
-	console.error(event);
-})
-
 self.addEventListener('fetch', event => {
 	let url = new URL(event.request.url);
-	console.log(url);
-	if(url.pathName == '/api/v5/convert') {
+
+	if(url.pathname == '/api/v5/convert') {
 		event.respondWith(serveCurrencyValue(event.request));
 		return;
 	}
 
 	event.respondWith(
 		caches.match(event.request).then(response => {
-			// console.log('fetching', event.request);
 			return response || fetch(event.request);
 		})
 	)
@@ -70,14 +65,16 @@ function serveCurrencyList(request) {
 function serveCurrencyValue(request) {
 	const queryRegex = /[^(\w*?)](\w*.\w*)(?=&)/g;
 
-	let queryUrl = queryRegex.exec(url.search)[1];
+	let queryUrl = queryRegex.exec(request.url)[1];
 	console.log(queryUrl);
 	return caches.open(currencyValueCache).then(cache => {
-		cache.match(queryUrl).then(response => {
-			let networkFetch = fetch(request).then(networkResponse => {
+		return cache.match(queryUrl).then(async response => {
+			let networkFetch = await fetch(request).then(networkResponse => {
 				cache.put(queryUrl, networkResponse.clone());
 				return networkResponse;
-			})	
+			})
+			.catch(err => console.error(err));
+			console.log(response, networkFetch);
 			return response || networkFetch;
 		})
 	})

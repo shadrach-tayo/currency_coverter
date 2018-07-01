@@ -17,6 +17,10 @@ const path = {
 	scripts: {
 		src: 'public/scripts/**/*.js',
 		dest: 'dist/assets/js'
+	},
+	sw: {
+		src: './public/*.js',
+		dest: 'dist'
 	}
 }
 
