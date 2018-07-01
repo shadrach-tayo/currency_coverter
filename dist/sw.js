@@ -1,4 +1,5 @@
-let staticCacheName = 'converter-v2';
+console.log('service worker is found');
+let staticCacheName = 'converter-v1';
 let currencyListCache = 'currencyList';
 let currencyValueCache = 'currencyValue-1';
 
