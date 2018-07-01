@@ -90,6 +90,7 @@ class Converter {
 	getCurrencyList() {
 		let getCurrencyData = this.fetchData(this.currencyListURL);
 		getCurrencyData.then(response => {
+			console.log(response)
 			let list = response["results"];
 			if(list !== undefined)
 				return this.updateCurrencyList(list);
