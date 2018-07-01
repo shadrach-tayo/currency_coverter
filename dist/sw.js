@@ -1,4 +1,4 @@
-let staticCacheName = 'converter-v1';
+let staticCacheName = 'converter-v2';
 let currencyListCache = 'currencyList';
 let currencyValueCache = 'currencyValue-1';
 
@@ -15,6 +15,8 @@ self.addEventListener('install', event => {
 			return cache.addAll([
 				'/dist/assets/css/styles.css',
 				'/dist/assets/js/app.js',
+				'/dist/assets/images/favicon.ico',
+				'/dist/manifest.json',
 				'/dist/',
 				'https://free.currencyconverterapi.com/api/v5/currencies'
 			])
