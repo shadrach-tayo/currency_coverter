@@ -3,6 +3,7 @@ let currencyValueCache = 'currencyValue-1';
 
 let allCaches = [
 	staticCacheName,
+	currencyListCache,
 	currencyValueCache
 ];
 
@@ -11,11 +12,11 @@ self.addEventListener('install', event => {
 		caches.open(staticCacheName).then(cache => {
 			console.log('adding all')
 			return cache.addAll([
-				'/dist/assets/css/styles.css',
-				'/dist/assets/js/app.js',
-				'/dist/assets/images/favicon.ico',
-				'/dist/manifest.json',
-				'/dist/',
+				'/currency_coverter/assets/css/styles.css',
+				'/currency_coverter/assets/js/app.js',
+				'/currency_coverter/',
+				'/currency_coverter/assets/images/favicon.ico',
+				'/currency_coverter/manifest.json',
 				'https://free.currencyconverterapi.com/api/v5/currencies'
 			])
 		})

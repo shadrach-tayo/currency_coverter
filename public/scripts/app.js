@@ -90,8 +90,9 @@ class Converter {
 	getCurrencyList() {
 		let getCurrencyData = this.fetchData(this.currencyListURL);
 		getCurrencyData.then(response => {
-			console.log(response)
-			let list = response["results"];
+			console.log({ response })
+			let { list } = response["results"];
+			console.log(list);
 			if(list !== undefined)
 				return this.updateCurrencyList(list);
 		})
@@ -142,19 +143,19 @@ class Converter {
 		let optionList = '';
 		console.log(currencyData);
 		for(let currency in currencyData) {
-			let {currencyName, id } = currencyData[currency];
+			let { currencyName, id } = currencyData[currency];
 			optionList +=`<option value=${id}>${id} (${currencyName})</option>`;
 		}	
 		this.currencyToConvertFrom.innerHTML = optionList;
 		this.currencyToConvertTo.innerHTML = optionList;
 	}
 
-	openDatabase() {
+	async openDatabase() {
 		if(!window.indexedDB) {
 			alert('Your browser does not support IndexedDB, some features may not work properly');
 		}
 
-		let request =  window.indexedDB.open(this.dbName, 1);
+		let request = await window.indexedDB.open(this.dbName, 1);
 
 		request.onsuccess = async (event) => {
 			this.db = await event.target.result;

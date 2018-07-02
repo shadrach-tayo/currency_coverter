@@ -16,22 +16,43 @@ html {
 
 body {
 	font-size: 62.5%;
-	background-image: -webkit-gradient(linear, right top, left bottom, from(#B23BC3FF), to(#622FCFFF));
-	background-image: linear-gradient(to bottom left, #B23BC3FF, #622FCFFF);
 	margin: 0;
 	padding: 0;
+	background-color: var(--white);
+	padding-top: 5rem;
+}
+
+.header__bar {
+	width: 100vw;
+	height: 3.5rem;
+	background-color: #712AD4FF;
+	-webkit-box-shadow: 0 2px .1rem .2rem rgba(0, 0, 0, 0.2);
+	        box-shadow: 0 2px .1rem .2rem rgba(0, 0, 0, 0.2);
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: grid;
+	justify-items: center;
+	-ms-flex-line-pack: center;
+	    align-content: center;
+}
+
+.header__name {
+	font-size: 2rem;
+	color: var(--white);
+	font-weight: 400;
 }
 
 .container {
 	--height: 85vh;
 	height: var(--height);
-	width: 30%;
-	margin: 3rem auto;
-	padding-bottom: 8px;
+	width: 40%;
+	max-width: 600rem;
+	margin: 0 auto;
 	border: 1px solid var(--white);
 	border-radius: 10px;
-	background: -webkit-gradient(linear, left top, right bottom, from(#2d5), to(#32CC7872));
-	background: linear-gradient(to right bottom, #2d5, #32CC7872);
+	background-image: -webkit-gradient(linear, left top, right bottom, from(#7819E5FF), to(#4D23DBFF));
+	background-image: linear-gradient(to bottom right, #7819E5FF, #4D23DBFF);
 	display: grid;
 	grid-template-columns: 100%;
 	grid-template-rows: 1fr 2fr;
@@ -48,7 +69,6 @@ body {
 	font-size: 1.5rem;
 	color: var(--white);
 	text-align: center;
-	padding-top: 1rem;
 }
 
 .display__form {
@@ -102,9 +122,22 @@ input[type="text"]:not(:focus) {
 }
 
 select {
-	background: var(--grey);
+	background-image: -webkit-gradient(linear, left top, right top, from(#8344BAFF), to(#8619E5FF));
+	background-image: linear-gradient(to right, #8344BAFF, #8619E5FF);
 }
 
 option {
-	background-color: #C0C0C0FF;
+	background-color: var(--purple);
+}
+
+@media screen and (max-width: 500px) {
+	.converter__form-input {
+		grid-template-columns: repeat(1, 100%);
+		grid-template-rows: repeat(3, autofill);
+		grid-gap: 10px;
+	}
+
+	.converter__input {
+		width: 100%;	
+	}
 }
