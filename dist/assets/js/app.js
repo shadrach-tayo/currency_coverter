@@ -25,7 +25,7 @@ class Converter {
 		// this.saveRatesInDb();
 	}
 
-	async saveRatesInDb() {
+	saveRatesInDb() {
 
 		let tx = this.db.transaction("converters", "readwrite")
 			.objectStore('converters')
@@ -88,7 +88,7 @@ class Converter {
 	}
 
 	getCurrencyList() {
-		let getCurrencyData = this.fetchData(this.currencyListURL);
+		const getCurrencyData = this.fetchData(this.currencyListURL);
 		getCurrencyData.then(response => {
 			console.log({ response })
 			let { list } = response["results"];

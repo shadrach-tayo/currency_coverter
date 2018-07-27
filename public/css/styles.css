@@ -46,8 +46,9 @@ body {
 	width: 40%;
 	max-width: 600rem;
 	margin: 0 auto;
-	border: 1px solid var(--white);
+	border: 1px solid transparent;
 	border-radius: 10px;
+	box-shadow: 5px 10px 20px 2px var(--grey);
 	background-image: linear-gradient(to bottom right, #7819E5FF, #4D23DBFF);
 	display: grid;
 	grid-template-columns: 100%;
