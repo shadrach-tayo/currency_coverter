@@ -1,4 +1,4 @@
-let staticCacheName = 'converter-v1';
+let staticCacheName = 'converter-v2';
 let currencyValueCache = 'currencyValue-1';
 
 let allCaches = [
