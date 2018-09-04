@@ -38,7 +38,7 @@ class Converter {
 	registerServiceWorker() {
 		if(!navigator.serviceWorker) return;
 
-		navigator.serviceWorker.register('/dist/sw.js', {scope: '/shadrach1999.github.io/'})
+		navigator.serviceWorker.register('/dist/sw.js', {scope: '/shadrach1999.github.io/currency-coverter'})
 		.then(reg => {
 			let serviceWorker;
 			if(reg.installing) {
