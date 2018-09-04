@@ -1,0 +1,14 @@
+{
+	"short_name": "Convert",
+	"name": "Currency Converter",
+	"background_color": "#9445B9FF",
+	"display": "standalone",
+	"theme_color": "#9445B9FF",
+	"icons": [
+	    {
+	      "src": "assets/images/favicon.ico",
+	      "sizes": "64x64 32x32 24x24 16x16",
+	      "type": "image/x-icon"
+	    }
+	]
+}
