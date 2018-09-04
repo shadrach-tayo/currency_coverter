@@ -3,8 +3,8 @@ const autoprefixer = require('gulp-autoprefixer');
 
 const path = {
 	html: {
-		src: 'index.html',
-		dest: 'dist'
+		src: 'public/*.html',
+		dest: './'
 	},
 	styles: {
 		src: 'public/css/*.css',
@@ -60,4 +60,4 @@ gulp.task('watch', gulp.parallel(() => {
 	gulp.watch(path.sw.src, gulp.parallel('sw'));
 }));
 
-gulp.task('default', gulp.parallel('html', 'styles', 'sw', 'images', 'scripts', 'watch'));
+gulp.task('default', gulp.parallel('html', 'sw', 'styles', 'images', 'scripts', 'watch'));

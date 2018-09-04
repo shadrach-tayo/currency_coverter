@@ -4,7 +4,7 @@
   "description": "currency converter app",
   "main": "./public/scripts/app.js",
   "scripts": {
-    "start": "live-server --open=dist"
+    "start": "live-server"
   },
   "author": "shadrach",
   "license": "ISC",
