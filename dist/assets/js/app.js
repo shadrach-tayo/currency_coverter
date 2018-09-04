@@ -38,7 +38,7 @@ class Converter {
 	registerServiceWorker() {
 		if(!navigator.serviceWorker) return;
 
-		navigator.serviceWorker.register('/dist/sw.js', {scope: '/dist/'})
+		navigator.serviceWorker.register('/dist/sw.js', {scope: '/shadrach.github.io/'})
 		.then(reg => {
 			let serviceWorker;
 			if(reg.installing) {

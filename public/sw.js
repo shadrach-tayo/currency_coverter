@@ -15,7 +15,7 @@ self.addEventListener('install', event => {
 				'/dist/assets/js/app.js',
 				'/dist/assets/images/favicon.ico',
 				'/dist/manifest.json',
-				'/dist/',
+				'/index.html',
 				'https://free.currencyconverterapi.com/api/v5/currencies'
 			])
 		})
@@ -23,6 +23,11 @@ self.addEventListener('install', event => {
 	);
 });
 
+/*
+	listen to activation event of the service worker 
+	and add static files to cache and filter out all 
+	invalid files
+*/
 self.addEventListener('activate', event => {
 	event.waitUntil(
 		caches.keys().then(cacheNames => {
@@ -35,6 +40,11 @@ self.addEventListener('activate', event => {
 	);
 });
 
+/*
+	listen to fetch event of the service worker 
+	and intercept special request to return to 
+	the page
+*/
 self.addEventListener('fetch', event => {
 	let url = new URL(event.request.url);
 
@@ -57,16 +67,10 @@ self.addEventListener('message', event => {
 	}
 })
 
-
-function serveCurrencyList(request) {
-
-}
-
 function serveCurrencyValue(request) {
 	const queryRegex = /[^(\w*?)](\w*.\w*)(?=&)/g;
 
 	let queryUrl = queryRegex.exec(request.url)[1];
-	console.log(queryUrl);
 	return caches.open(currencyValueCache).then(cache => {
 		return cache.match(queryUrl).then(async response => {
 			let networkFetch = await fetch(request).then(networkResponse => {
@@ -74,7 +78,6 @@ function serveCurrencyValue(request) {
 				return networkResponse;
 			})
 			.catch(err => console.error(err));
-			console.log(response, networkFetch);
 			return response || networkFetch;
 		})
 	})
