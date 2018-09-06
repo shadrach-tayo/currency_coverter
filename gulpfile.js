@@ -20,7 +20,7 @@ const path = {
 	},
 	sw: {
 		src: 'public/*.js',
-		dest: 'dist'
+		dest: './'
 	}
 }
 
